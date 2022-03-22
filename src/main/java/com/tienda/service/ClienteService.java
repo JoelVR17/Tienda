@@ -2,16 +2,16 @@
 package com.tienda.service;
 
 import java.util.List;
-import com.tienda.domain.cliente;
+import com.tienda.domain.Cliente;
 
 public interface ClienteService {
     
-    public List<cliente> getClientes();
+    public List<Cliente> getClientes();
     
-    public void save(cliente cliente);
+    public void save(Cliente cliente);
     
-    public void delete(cliente cliente);
+    public void delete(Cliente cliente);
     
-    public cliente getCliente(cliente cliente);
+    public Cliente getCliente(Cliente cliente);
     
 }
