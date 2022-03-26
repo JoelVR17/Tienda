@@ -19,12 +19,11 @@ public class Credito implements Serializable{
     @Column(name="id_credito")
     
     //SE ESTABLECEN LOS ATRIBUTOS
-    private Long idcredito;
-    private double limite;
+    private Long idCredito;
+    private Long limite;
     
     //SE ESTABLECEN CONSTRUCTORES
-
-    public Credito(double limite) {
+    public Credito(Long limite) {
         this.limite = limite;
     }
     

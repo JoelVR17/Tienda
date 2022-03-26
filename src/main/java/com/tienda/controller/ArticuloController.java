@@ -42,7 +42,7 @@ public class ArticuloController {
         return"redirect:/articulo/listado";
     }
     
-    @GetMapping("articulo/modificar/{idarticulo}")
+    @GetMapping("articulo/modificar/{idArticulo}")
     public String modificarArticulo(Articulo articulo, Model model){
         
         articulo = articuloService.getArticulo(articulo);
@@ -50,7 +50,7 @@ public class ArticuloController {
         return"/articulo/modificar";
     }
     
-    @GetMapping("articulo/eliminar/{idarticulo}")
+    @GetMapping("articulo/eliminar/{idArticulo}")
     public String eliminarArticulo(Articulo articulo){
         
         articuloService.delete(articulo);
