@@ -20,7 +20,7 @@ public class Credito implements Serializable{
     
     //SE ESTABLECEN LOS ATRIBUTOS
     private Long idCredito;
-    private Long limite;
+    public Long limite;
     
     //SE ESTABLECEN CONSTRUCTORES
     public Credito(Long limite) {
