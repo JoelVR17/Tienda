@@ -24,10 +24,8 @@ public class ArticuloController {
         
         var articulos = articuloService.getArticulos(false);
         model.addAttribute("articulos",articulos);
-        return "/articulo/listado";
+        return "/articulo/agregarArticulo";
     }
-    
-    
     
     @GetMapping("/articulo/nuevo")
     public String nuevoArticulo(Articulo articulo){
@@ -35,11 +33,11 @@ public class ArticuloController {
         return"/articulo/modificar";
     }
     
-    @PostMapping("articulo/guardar")
+    @PostMapping("/articulo/guardar")
     public String guardarArticulo(Articulo articulo){
         
         articuloService.save(articulo);
-        return"redirect:/articulo/listado";
+        return"redirect:/";
     }
     
     @GetMapping("articulo/modificar/{idArticulo}")

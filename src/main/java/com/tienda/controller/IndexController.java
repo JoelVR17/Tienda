@@ -23,6 +23,16 @@ public class IndexController {
     public String inicio(Model model){
         
         var articulos = articuloService.getArticulos(true);
+        
+        var precioTotal = 0;
+        for(var c: articulos){
+            precioTotal+=c.getPrecio();
+        }
+        
+        int productoTotal = 0;
+        
+        model.addAttribute("productoTotal",articulos.size());
+        model.addAttribute("precioTotal",precioTotal);
         model.addAttribute("articulos",articulos);
         return "index";
     }

@@ -20,17 +20,18 @@ public class Articulo implements Serializable{
     
     //SE ESTABLECEN LOS ATRIBUTOS
     private Long idArticulo;
-    private Long idCategoria;
     private String descripcion;
     private String detalle;
     private double precio;
     private int existencias;
     private boolean activo;
     
+    @JoinColumn(name="id_categoria", referencedColumnName = "id_categoria")
+    @ManyToOne
+    public Categoria categoria;
     
     //SE ESTABLECEN CONSTRUCTORES 
-    public Articulo(Long idCategoria, String descripcion, String detalle, double precio, int existencias, boolean activo) {
-        this.idCategoria = idCategoria;
+    public Articulo(String descripcion, String detalle, double precio, int existencias, boolean activo) {
         this.descripcion = descripcion;
         this.detalle = detalle;
         this.precio = precio;

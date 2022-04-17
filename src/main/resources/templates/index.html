@@ -8,17 +8,106 @@
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"/>
+        
+        <!-- BOT[ON DE AGREGAR ARTICULO -->
+        <section class="py-4 mb-4 bg-success">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarArticulo">
+                            <i class="fas fa-plus"></i> [[#{accion.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- VENTANAS DE AGREGAR PRODUCTO -->
+        <section th:fragment="agregarArticulo">
+            <div id="agregarArticulo" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Articulo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/articulo/guardar}" th:object="${articulo}"
+                              method="POST" class="was-validated">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="categoria">Categoria</label>
+                                    <input type="number" class="form-control" name="categoria.idCategoria" required="true" step="any"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcion">Descripcion</label>
+                                    <input type="text" class="form-control" name="descripcion" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="detalle">Detalle</label>
+                                    <input type="text" class="form-control" name="detalle" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" class="form-control" name="precio" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="existencias">Existencias</label>
+                                    <input type="number" class="form-control" name="existencias"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="activo">Activo</label>
+                                    <input type="checkbox" class="form-control" name="activo" required="true" step="any"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>      
+
+        <!-- VENTANAS DE REPORTES -->
+        <div class="col-md-5" style="margin:50px 180px">
+
+            <div class="card text-center bg-dark text-white mb-3">
+                <div class="card-body">
+                    <h3>Precio Total de Productos Mostrados</h3>
+                    <h4 class="display-6">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        [[${new java.text.DecimalFormat('¢#,##0.00').format(precioTotal)}]]
+                    </h4>
+                </div>
+            </div>
+
+            <div class="card text-center bg-info text-white mb-3">
+                <div class="card-body">
+                    <h3>Total de Productos Mostrados</h3>
+                    <h4 class="display-6">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        [[${productoTotal}]]
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- VENTANAS DE LISTA DE ARTICULOS -->
         <div class="container">
             <h2 th:text="#{index.titulo}">Nuestros Articulos</h2>            
             <div class="row row-cols-3" th:if="${articulos != null and !articulos.empty}">
                 <div class="card" th:each="articulo : ${articulos}" >
-                   <img src="/images/equipo1.jpg" class="card-img-top" alt="equipo">  
-                    <div class="card-body">
-                        <h5 class="card-title">[[${articulo.descripcion}]]</h5>
-                        <h6 class="card-subtitle mb-2 text-muted text-end">[[${new java.text.DecimalFormat('¢#,##0.00').format(articulo.precio)}]]</h6>
-                        <a class="card-link" th:href="@{/carrito/agregar/} + ${articulo.idArticulo}">[[#{articulo.comprar}]]</a>
-                        <p class="card-text">[[${articulo.detalle}]]</p>                        
-                    </div>
+                    <img src="/images/equipo1.jpg" class="card-img-top" alt="equipo">  
+                        <div class="card-body">
+                            <h5 class="card-title">[[${articulo.descripcion}]]</h5>
+                            <h6 class="card-subtitle mb-2 text-muted text-end">[[${new java.text.DecimalFormat('¢#,##0.00').format(articulo.precio)}]]</h6>
+                            <a class="card-link" th:href="@{/carrito/agregar/} + ${articulo.idArticulo}">[[#{articulo.comprar}]]</a>
+                            <p class="card-text">[[${articulo.detalle}]]</p>                        
+                        </div>
                 </div>                
             </div>
             <div th:if="${articulos == null or articulos.empty}"  th:text="#{articulo.no_mostrar}">
